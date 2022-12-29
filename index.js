@@ -7,6 +7,27 @@ const userData = require('./Demo/userData');
 const app = express();
 
 
+
+// Setting up the ejs frameWork---------------------
+
+app.set('view engine', 'ejs');
+
+app.get('/profile', (req, resp) => {
+
+    const data = {
+        firstName: 'Rakesh',
+        middleName: 'Kumar',
+        lastName: 'Parida', 
+        skills: ['Java', 'Html5', 'Css3', 'BootStrap', 'Jqueary', 'ReactJs', 'MySQL', 'NodeJs & ExpressJS', 'Git & GitHub']
+    }
+    resp.render('profile', {data});
+})
+
+app.get('/login', (req, resp) => {
+    resp.render('login');
+})
+// ----------------------------------------
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname +'/Demo/index.html')
 });
@@ -20,6 +41,10 @@ app.get('/contact', (req, res) => {
 });
 app.get('/userData', (req, res) => {
     res.send(JSON.stringify(userData));
+});
+app.get('*', (req, res) => {
+    res.sendFile(__dirname + '/Demo/404.html');
+    
 })
 
 
